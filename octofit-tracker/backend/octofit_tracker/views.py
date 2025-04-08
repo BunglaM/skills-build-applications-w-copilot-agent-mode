@@ -18,7 +18,8 @@ def api_root(request, format=None):
         'teams': f'{base_url}/api/teams/',
         'activities': f'{base_url}/api/activities/',
         'leaderboard': f'{base_url}/api/leaderboard/',
-        'workouts': f'{base_url}/api/workouts/'
+        'workouts': f'{base_url}/api/workouts/',
+        'codespace': f'{base_url}/api/codespace/'  # Add codespace endpoint
     })
 
 class UserViewSet(viewsets.ModelViewSet):
