@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,16 @@ SECRET_KEY = "django-insecure-u4axzhigncnus#@603eb#f0dj17i8c93yavx4r02y7syfdvwo7
 DEBUG = True
 
 # Updated ALLOWED_HOSTS to allow all hosts
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'studious-xylophone-wr7vp45pxrjw397rv-8000.app.github.dev']
+
+# Add a setting for the codespace URL
+CODESPACE_URL = 'https://studious-xylophone-wr7vp45pxrjw397rv-8000.app.github.dev'
+
+# Refine BASE_URL logic to use the port forwarding domain
+if 'CODESPACES' in os.environ:
+    BASE_URL = f'https://{os.environ["GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN"]}'
+else:
+    BASE_URL = 'http://localhost:8000'
 
 
 # Application definition
@@ -146,3 +156,18 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+# Configure logging to output debug messages to the console
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
